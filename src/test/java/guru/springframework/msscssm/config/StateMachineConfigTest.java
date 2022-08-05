@@ -32,6 +32,7 @@ class StateMachineConfigTest {
 
         System.out.println(sm.getState().toString());
 
+        //ignore it
         sm.sendEvent(PaymentEvent.PRE_AUTH_DECLINED);
 
         System.out.println(sm.getState().toString());
