@@ -50,6 +50,7 @@ class PaymentServiceImplTest {
     }
 
 
+    //final version
     @Transactional
     @RepeatedTest(10)
     void testAuth() {
