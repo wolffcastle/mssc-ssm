@@ -40,7 +40,7 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<PaymentSta
     @Override
     public void configure(StateMachineTransitionConfigurer<PaymentState, PaymentEvent> transitions) throws Exception {
         transitions.withExternal().source(PaymentState.NEW).target(PaymentState.NEW).event(PaymentEvent.PRE_AUTHORIZE)
-                    .action(preAuthAction()).guard(paymentIdGuard())
+                    .action(preAuthAction()).guard(paymentIdGuard()) //add one or multiple guards
                 .and()
                 .withExternal().source(PaymentState.NEW).target(PaymentState.PRE_AUTH).event(PaymentEvent.PRE_AUTH_APPROVED)
                 .and()
@@ -68,6 +68,7 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<PaymentSta
                 .listener(adapter);
     }
 
+    //Guard takes care that the header is set
     public Guard<PaymentState, PaymentEvent> paymentIdGuard(){
         return context -> {
             return context.getMessageHeader(PaymentServiceImpl.PAYMENT_ID_HEADER) != null;
